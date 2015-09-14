@@ -2,6 +2,7 @@
 This is a simple filesystem named after my labratory. Use the new kernfs interface, just as an example to learn the kernel.
 
 Usage:
+
 	1.	Please patch the dslabfs.4.2.patch to linux 4.2 source,
 		then compile the kernel, and start the new kernel.
 
@@ -24,5 +25,5 @@ Usage:
 			make uninstall
 		this may require you to type your password.
 
-Welcome to visit our laboratory websites:
+Welcome to visit our laboratory website:
 	http://dslab.lzu.edu.cn/
