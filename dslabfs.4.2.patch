@@ -1,0 +1,102 @@
+diff -urN linux-4.2/fs/kernfs/dir.c linux/fs/kernfs/dir.c
+--- linux-4.2/fs/kernfs/dir.c	2015-08-31 02:34:09.000000000 +0800
++++ linux/fs/kernfs/dir.c	2015-09-15 06:30:08.205532480 +0800
+@@ -738,6 +738,7 @@
+ 
+ 	return root;
+ }
++EXPORT_SYMBOL_GPL(kernfs_create_root);
+ 
+ /**
+  * kernfs_destroy_root - destroy a kernfs hierarchy
+@@ -750,6 +751,7 @@
+ {
+ 	kernfs_remove(root->kn);	/* will also free @root */
+ }
++EXPORT_SYMBOL_GPL(kernfs_destroy_root);
+ 
+ /**
+  * kernfs_create_dir_ns - create a directory
+@@ -785,6 +787,7 @@
+ 	kernfs_put(kn);
+ 	return ERR_PTR(rc);
+ }
++EXPORT_SYMBOL_GPL(kernfs_create_dir_ns);
+ 
+ /**
+  * kernfs_create_empty_dir - create an always empty directory
+@@ -1023,6 +1026,7 @@
+ 
+ 	mutex_unlock(&kernfs_mutex);
+ }
++EXPORT_SYMBOL_GPL(kernfs_activate);
+ 
+ static void __kernfs_remove(struct kernfs_node *kn)
+ {
+@@ -1102,6 +1106,7 @@
+ 	__kernfs_remove(kn);
+ 	mutex_unlock(&kernfs_mutex);
+ }
++EXPORT_SYMBOL_GPL(kernfs_remove);
+ 
+ /**
+  * kernfs_break_active_protection - break out of active protection
+@@ -1125,6 +1130,7 @@
+ 	 */
+ 	kernfs_put_active(kn);
+ }
++EXPORT_SYMBOL_GPL(kernfs_break_active_protection);
+ 
+ /**
+  * kernfs_unbreak_active_protection - undo kernfs_break_active_protection()
+@@ -1156,6 +1162,7 @@
+ 	if (kernfs_lockdep(kn))
+ 		rwsem_acquire(&kn->dep_map, 0, 1, _RET_IP_);
+ }
++EXPORT_SYMBOL_GPL(kernfs_unbreak_active_protection);
+ 
+ /**
+  * kernfs_remove_self - remove a kernfs_node from its own method
+@@ -1267,6 +1274,7 @@
+ 	else
+ 		return -ENOENT;
+ }
++EXPORT_SYMBOL_GPL(kernfs_remove_by_name_ns);
+ 
+ /**
+  * kernfs_rename_ns - move and rename a kernfs_node
+@@ -1343,6 +1351,7 @@
+ 	mutex_unlock(&kernfs_mutex);
+ 	return error;
+ }
++EXPORT_SYMBOL_GPL(kernfs_rename_ns);
+ 
+ /* Relationship between s_mode and the DT_xxx types */
+ static inline unsigned char dt_type(struct kernfs_node *kn)
+diff -urN linux-4.2/fs/kernfs/file.c linux/fs/kernfs/file.c
+--- linux-4.2/fs/kernfs/file.c	2015-08-31 02:34:09.000000000 +0800
++++ linux/fs/kernfs/file.c	2015-09-15 06:30:08.213532268 +0800
+@@ -951,3 +951,4 @@
+ 	}
+ 	return kn;
+ }
++EXPORT_SYMBOL_GPL(__kernfs_create_file);
+diff -urN linux-4.2/fs/kernfs/mount.c linux/fs/kernfs/mount.c
+--- linux-4.2/fs/kernfs/mount.c	2015-08-31 02:34:09.000000000 +0800
++++ linux/fs/kernfs/mount.c	2015-09-15 06:30:08.229532373 +0800
+@@ -184,6 +184,7 @@
+ 
+ 	return dget(sb->s_root);
+ }
++EXPORT_SYMBOL_GPL(kernfs_mount_ns);
+ 
+ /**
+  * kernfs_kill_sb - kill_sb for kernfs
+@@ -210,6 +211,7 @@
+ 	kfree(info);
+ 	kernfs_put(root_kn);
+ }
++EXPORT_SYMBOL(kernfs_kill_sb);
+ 
+ /**
+  * kernfs_pin_sb: try to pin the superblock associated with a kernfs_root
